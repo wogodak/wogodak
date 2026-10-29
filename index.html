@@ -1,1 +1,68 @@
-<!DOCTYPE html><html dir="rtl" lang="ar"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>وقودك</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma}body{background:#FFFBEB} .h{background:#0E4C3E;color:#fff;padding:20px;text-align:center} .s{padding:12px} .s input{width:100%;padding:13px;border-radius:14px;border:1px solid #ddd;text-align:center} .card{background:#fff;margin:10px 14px;border-radius:18px;padding:14px;display:flex;justify-content:space-between;box-shadow:0 4px 10px rgba(0,0,0,0.06)} .badge{padding:5px 12px;border-radius:20px;color:#fff;font-size:12px} .g{background:#2E8B57} .r{background:#C83C3C} .o{background:#E67E22}</style></head><body><div class="h"><h2>⛽ وقودك</h2><small>الخرطوم - يفتح في اي تلفون</small></div><div class="s"><input id="q" placeholder="ابحث... امدرمان، بحري" oninput="fil()"></div><div id="L"></div><script>let d=[{n:"بشاير - الثورة",c:"امدرمان",s:"متوفر",k:"g",t:"الآن"},{n:"النيل - العمارات",c:"الخرطوم",s:"مافي",k:"r",t:"منذ 10د"},{n:"اويل انرجي - كوبر",c:"بحري",s:"متوسط",k:"o",t:"منذ 12د"},{n:"نوافل - امبدة",c:"امدرمان",s:"متوفر",k:"g",t:"منذ 5د"}];function ren(a){L.innerHTML=a.map(x=>`<div class=card><div><b>${x.n}</b><br><small>${x.c} - ${x.t}</small></div><span class="badge ${x.k}">${x.s}</span></div>`).join('')}function fil(){ren(d.filter(x=>x.n.includes(q.value)||x.c.includes(q.value)))}ren(d);</script></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>وقودك - الخرطوم</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif}
+body{background:#fdfde8}
+.hidden{display:none!important}
+#welcome{
+  position:fixed;inset:0;background:#013a2a;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;color:white;text-align:center;z-index:99
+}
+.w-card{background:white;width:100%;max-width:380px;border-radius:24px;padding:24px;color:#111;text-align:right}
+.w-card input{width:100%;padding:14px 16px;border:2px solid #e5e7eb;border-radius:12px;margin-top:8px;margin-bottom:16px;font-size:16px;outline:none}
+.w-card button{width:100%;background:#013a2a;color:white;border:none;padding:15px;border-radius:12px;font-size:18px;font-weight:800}
+.header{background:#0b3d2e;color:white;padding:24px;text-align:center}
+.list{padding:16px;display:flex;flex-direction:column;gap:12px}
+.card{background:white;border-radius:16px;padding:16px;display:flex;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.name{font-weight:800;font-size:18px}
+.meta{color:#666;font-size:13px}
+.badge{padding:10px 16px;border-radius:14px;color:white;font-weight:700}
+.green{background:#1a8a4a}.red{background:#c1352e}.orange{background:#e67e17}
+</style>
+</head>
+<body>
+<div id="welcome">
+  <h1 style="font-size:44px">⛽ وقودك</h1>
+  <p style="margin:8px 0 24px;opacity:.9">الخرطوم - يفتح في اي تلفون</p>
+  <div class="w-card">
+    <label>اسمك</label>
+    <input id="name" placeholder="مثلا: أحمد">
+    <label>ايميلك</label>
+    <input id="email" type="email" placeholder="ahmed@gmail.com">
+    <button onclick="login()">دخول للمحطات ⛽</button>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+  <div class="header"><h2>⛽ وقودك</h2><div id="hello" style="margin-top:8px"></div></div>
+  <div class="list">
+    <div class="card"><div><div class="name">بشاير - الثورة</div><div class="meta">امدرمان - الآن</div></div><div class="badge green">متوفر</div></div>
+    <div class="card"><div><div class="name">النيل - العمارات</div><div class="meta">الخرطوم - منذ 10د</div></div><div class="badge red">مافي</div></div>
+    <div class="card"><div><div class="name">اويل انرجي - كوبر</div><div class="meta">بحري - منذ 12د</div></div><div class="badge orange">متوسط</div></div>
+  </div>
+</div>
+
+<script>
+let w=document.getElementById('welcome'),a=document.getElementById('app');
+if(localStorage.getItem('w_name')){showApp()}
+function login(){
+  let n=document.getElementById('name').value.trim();
+  let e=document.getElementById('email').value.trim();
+  if(!n||!e){alert('اكتب اسمك وايميلك');return}
+  localStorage.setItem('w_name',n);
+  localStorage.setItem('w_email',e);
+  showApp()
+}
+function showApp(){
+  w.classList.add('hidden');a.classList.remove('hidden');
+  document.getElementById('hello').innerText='مرحب يا '+localStorage.getItem('w_name')+' 👋';
+}
+</script>
+</body>
+</html>
